@@ -21,10 +21,9 @@ def save_list():
         os.remove('list.txt')
     with open('list.txt', 'w') as f:
         for item in items:
-            print(item)
             if item == '':
                 continue
-            f.write("* %s\n" % item)
+            f.write("%s\n" % item)
     quit()
 
 def load_list():
@@ -33,7 +32,7 @@ def load_list():
         with open('list.txt', 'r') as f:
             items = [line.strip() for line in f]
             for item in items:
-                dpg.add_button(label=item, parent='ItemList', callback=remove_item, user_data=item)
+                dpg.add_button(label='*' + item, parent='ItemList', callback=remove_item, user_data=item)
     except FileNotFoundError:
         pass
 
