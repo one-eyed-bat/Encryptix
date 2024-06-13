@@ -10,19 +10,13 @@ def add_item(sender, app_data, user_data):
     dpg.add_button(label='*' + item_name, parent='ItemList', callback=remove_item, user_data=item_name)
     items.append(item_name)
     dpg.set_value(user_data, '')
-        
-    print(f"{item_name} added")
-    print("items are: ", items)
 
 def remove_item(sender, app_data, user_data):
-    print(user_data)
     items.remove(user_data)
     dpg.delete_item(sender)
-    print("items after deletion are: ", items)
 
 def save_list():
     global items
-    print("items at save are: ", items)
     if os.path.exists('list.txt'):
         os.remove('list.txt')
     with open('list.txt', 'w') as f:
@@ -36,11 +30,9 @@ def save_list():
 def load_list():
     global items
     try:
-        print("trying to read file")
         with open('list.txt', 'r') as f:
             items = [line.strip() for line in f]
             for item in items:
-                print(item)
                 dpg.add_button(label=item, parent='ItemList', callback=remove_item, user_data=item)
     except FileNotFoundError:
         pass
